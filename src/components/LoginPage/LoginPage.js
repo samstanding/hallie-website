@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-// import { triggerLogin, formError, clearError } from '../../redux/actions/loginActions';
+import { triggerLogin, formError, clearError } from '../../redux/actions/loginActions';
 
 const mapStateToProps = state => ({
     user: state.user,
-    login: state.user,
+    login: state.login,
 });
 
 class LoginPage extends Component {
@@ -19,14 +19,14 @@ class LoginPage extends Component {
     }
 
 componentDidMount() {
-    this.props.dispatch(clearEror());
+    this.props.dispatch(clearError());
  }
 
-componentWillReceiveProps(nextProps) {
+ componentWillReceiveProps(nextProps) {
     if (nextProps.user.userName) {
-        this.componentWillReceiveProps.history.push('/user');
+      this.props.history.push('/user');
     }
-}
+  }
 
 login = (event) => {
     event.preventDefault();
@@ -38,7 +38,7 @@ login = (event) => {
     }
 }
 
-handleInputChangeFor = propertyName = (event) => {
+handleInputChangeFor = propertyName => (event) => {
     this.setState({
         [propertyName]: event.target.value,
     })

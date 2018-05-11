@@ -1,4 +1,4 @@
-const rejectUnauthenicated = (req, res, next) => {
+const rejectUnauthenticated = (req, res, next) => {
     //checks if logged in
     if (req.isAuthenticated()) {
         next();
@@ -7,4 +7,4 @@ const rejectUnauthenicated = (req, res, next) => {
     }
 };
 
-module.exports = {rejectUnauthenicated};
+module.exports = {rejectUnauthenticated};

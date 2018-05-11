@@ -32,7 +32,7 @@ class RegisterPage extends Component {
             fetch(request)
             .then((response) => {
                 if(response.status === 201) {
-                    this.props.history.push('/home');
+                    this.props.history.push('/admin');
                 } else {
                     this.setState({
                         message: 'That didn\'t work.', 
