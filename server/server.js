@@ -1,5 +1,5 @@
 const express = require('express');
-require('dotnev').config();
+require('dotenv').config();
 
 const app = express();
 
