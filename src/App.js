@@ -20,7 +20,7 @@ class App extends Component {
             component={RegisterPage}
           />
           <Route 
-            path="/user"
+            path="/add"
             component={AdminHome}
           />
         </Switch>

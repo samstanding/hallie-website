@@ -7,7 +7,6 @@ function* fetchUser() {
   try {
     yield put({ type: USER_ACTIONS.REQUEST_START });
     const user = yield callUser();
-    console.log('is it here?');
     yield put({
       type: USER_ACTIONS.SET_USER,
       user,
