@@ -16,3 +16,33 @@ export function sendWork(payload) {
           throw error.response || error;
       });
 }
+
+export function sendCaroPhoto (payload) {
+    const body = ({
+        carouselPhoto: payload.carouselPhoto,
+    }); 
+
+    const config = {
+        headers: { 'Content-Type': 'application/json' },
+        withCredentials: true,
+    }
+
+    return axios.post('/api/work/carousel', body, config)
+    .then(response=>response.data)
+    .catch((error) => {
+        throw error.message || error;
+    })
+}
+
+export function getCaroPhotos () {
+    const config = {
+        headers: { 'Content-Type': 'application/json' },
+        withCredentials: true,
+    }
+
+    return axios.get('/api/work/carousel', config)
+    .then(response => response.data)
+    .catch((error) => {
+        throw error.message || error;
+    })
+}

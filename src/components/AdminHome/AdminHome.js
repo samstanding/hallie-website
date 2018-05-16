@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { USER_ACTIONS } from '../../redux/actions/userActions';
 import { triggerLogout } from '../../redux/actions/loginActions';
-import { triggerPost } from '../../redux/actions/workActions';
+import { triggerPost, triggerCaroPost } from '../../redux/actions/workActions';
 import ArtworkForm from '../ArtworkForm/ArtworkForm';
+import CarouselForm from '../CarouselForm/CarouselForm';
 
 const mapStateToProps = state => ({
     user: state.user,
 })
-
 
 class AdminHome extends Component {
     constructor(props) {
@@ -17,18 +17,42 @@ class AdminHome extends Component {
             work: {
                 title: '',
                 type: '',
-                media_url: '',
+                media_url: {},
             },
+            carouselPhoto: {
+                photo_url: {},
+                order: 0,
+            }
         };
     }
 
-    handleChangeFor = propertyName => (event) => {
+    handleEventChange = (event) => {
         this.setState({
             work: {
-                ...this.state.work,
-                [propertyName]: event.target.value,
+                title: event.target.value,
             }
         });
+    }
+
+    handleTypeChange = event => {
+        this.setState({
+            work: {
+                type: event.target.value,
+            },
+        })
+    }
+
+    handleCaroChange = propertyName => (event) => {
+        this.setState({
+            carouselPhoto: {
+                [propertyName]: event.target.value,
+            }
+        })
+    }
+
+    handleCaroSubmit = (event) => {
+        event.preventDefault();
+        this.props.dispatch(triggerCaroPost(this.state.carouselPhoto));
     }
 
     handleSubmit = (event) => {
@@ -63,7 +87,10 @@ class AdminHome extends Component {
                     >
                         Welcome, {this.props.user.userName}!
                     </h1>
-                    <ArtworkForm handleChangeFor={this.handleChangeFor} work={this.state.work} handleSubmit={this.handleSubmit}/>
+                    <hr/>
+                    {/* <Carosel/> */}
+                    <CarouselForm handleCaroChange={this.handleCaroChange} handleCaroSubmit= {this.handleCaroSubmit} carouselPhoto={this.state.carouselPhoto}/>
+                    <ArtworkForm handleTitleChange={this.handleTitleChange} handleTypeChange={this.handleTypeChange} work={this.state.work} handleSubmit={this.handleSubmit}/>
                     <button onClick={this.logout}> Log Out </button>
                     </div>
             )

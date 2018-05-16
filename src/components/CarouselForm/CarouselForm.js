@@ -2,42 +2,35 @@ import React, { Component } from 'react';
 import ReactFilestack from 'react-filestack';
 
 
-
-class ArtworkForm extends Component{
+class CarouselForm extends Component{
     render() {
         return (
             <div>
-            <h3>Upload a piece of work!</h3>
-            <form onSubmit={this.props.handleSubmit}>
+            <h3>Upload a photo for the carousel!</h3>
+            <form onSubmit={this.props.handleCaroSubmit}>
                 <input  
-                    type="text"
-                    placeholder="title"
-                    value={this.props.work.title}
-                    onChange={this.props.handleTitleChange}
+                    type="number"
+                    placeholder="order"
+                    value={this.props.carouselPhoto.order}
+                    onChange={this.props.handleCaroChange('order')}
                 />
-                <select value={this.props.work.type} onChange={this.props.handleTypeChange}>
-                <option value="Set">Set</option>
-                <option value="Video">Video</option>
-                </select>
                 <ReactFilestack 
                 apikey={process.env.REACT_APP_FILESTACK_KEY} 
                 mode={'pick'}
                 onSuccess={(response) => {
-                    this.props.handleChangeFor('media_url');
-                    this.props.work.media_url=response.filesUploaded[0];
+                    this.props.handleCaroChange('photo_url');
+                    this.props.carouselPhoto.photo_url=response.filesUploaded[0];
                     console.log(response);
                 } }
                 onError={(e) => console.log(e)}
                 buttonText={''}
                 buttonClass="fs-button"
                  />
-                
                 <input 
                      type="submit"
                      name="submit"
                      value="Submit"
                 />
-
             </form>
             </div>
         );
@@ -45,5 +38,4 @@ class ArtworkForm extends Component{
 }
     
 
-export default ArtworkForm;
-
+export default CarouselForm;
